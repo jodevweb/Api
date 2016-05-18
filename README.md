@@ -39,10 +39,15 @@ $parameters = [
 ## Parameters
 
 ```
-    <?php echo $api->showJson([
-        'table' => $_GET['filtre'],
-        'order' => 'DESC',
-        'limit' => '4',
+    <?php
+    echo $api->showJson([
+        'table' => $getTable,
+        'order' => $getOrder,
+        'limit' => $getLimit,
     ]);
     ?>
 ```
+
+### http://localhost/api/?filtre=articles&order=DESC
+### http://localhost/api/?filtre=articles&limit=4
+### http://localhost/api/?filtre=articles&order=ASC&limit=30

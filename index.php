@@ -8,6 +8,10 @@ include_once('config.php');
 include_once('apiController.php');
 
 $api = new \API\api($parameters);
+
+$getTable = ($_GET['filtre']) ? $_GET['filtre'] : false;
+$getOrder = ($_GET['order']) ? $_GET['order'] : false;
+$getLimit = ($_GET['limit']) ? $_GET['limit'] : false;
 ?>
 
 <?php if (!$_GET): ?>
@@ -20,10 +24,11 @@ $api = new \API\api($parameters);
 
 <?php else: ?>
 
-    <?php echo $api->showJson([
-        'table' => $_GET['filtre'],
-        'order' => 'DESC',
-        'limit' => '4',
+    <?php
+    echo $api->showJson([
+        'table' => $getTable,
+        'order' => $getOrder,
+        'limit' => $getLimit,
     ]);
     ?>
 
