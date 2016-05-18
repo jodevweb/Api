@@ -9,9 +9,9 @@ include_once('apiController.php');
 
 $api = new \API\api($parameters);
 
-$getTable = ($_GET['filtre']) ? $_GET['filtre'] : false;
-$getOrder = ($_GET['order']) ? $_GET['order'] : false;
-$getLimit = ($_GET['limit']) ? $_GET['limit'] : false;
+$getTable = (!empty($_GET['filtre'])) ? $_GET['filtre'] : false;
+$getOrder = (!empty($_GET['order'])) ? $_GET['order'] : false;
+$getLimit = (!empty($_GET['limit'])) ? $_GET['limit'] : false;
 ?>
 
 <?php if (!$_GET): ?>
