@@ -52,8 +52,17 @@ class api
 
     public function showJson($params)
     {
-        if ($params['limit']) $params['limit'] = ' LIMIT ' . $params['limit'];
-        if ($params['order']) $params['order'] = ' ORDER BY ' . $params['table'] . '.id ' . $params['order'];
+        if ($params['limit']):
+            $params['limit'] = ' LIMIT ' . intval($params['limit']);
+        else:
+            $params['limit'] = false;
+        endif;
+
+        if ($params['order'] && $params['order'] == "DESC" OR $params['order'] == "ASC"):
+            $params['order'] = ' ORDER BY ' . $params['table'] . '.id ' . $params['order'];
+        else:
+            $params['order'] = false;
+        endif;
 
         if (in_array($params['table'], $this->showTables()) && in_array($params['table'], $this->restriction)) {
             $query = $this->connect()->prepare('SELECT * FROM ' . $params['table'] . $params['order'] . $params['limit']);
