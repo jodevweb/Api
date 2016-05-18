@@ -20,6 +20,11 @@ $api = new \API\api($parameters);
 
 <?php else: ?>
 
-    <?php echo ($api->showJson($_GET['filtre'])); ?>
+    <?php echo $api->showJson([
+        'table' => $_GET['filtre'],
+        'order' => 'DESC',
+        'limit' => '4',
+    ]);
+    ?>
 
 <?php endif; ?>

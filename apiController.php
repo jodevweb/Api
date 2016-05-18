@@ -50,10 +50,13 @@ class api
     }
 
 
-    public function showJson($table)
+    public function showJson($params)
     {
-        if (in_array($table, $this->showTables()) && in_array($table, $this->restriction)) {
-            $query = $this->connect()->prepare('SELECT * FROM ' . $table);
+        if ($params['limit']) $params['limit'] = ' LIMIT ' . $params['limit'];
+        if ($params['order']) $params['order'] = ' ORDER BY ' . $params['table'] . '.id ' . $params['order'];
+
+        if (in_array($params['table'], $this->showTables()) && in_array($params['table'], $this->restriction)) {
+            $query = $this->connect()->prepare('SELECT * FROM ' . $params['table'] . $params['order'] . $params['limit']);
             $query->execute();
 
             return json_encode($query->fetchAll());
