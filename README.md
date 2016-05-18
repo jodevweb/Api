@@ -29,6 +29,9 @@ $parameters = [
 
 ### Url : http://localhost/api/
 
++ profile
++ articles
+
 
 #### http://localhost/api/?filtre=articles
 
