@@ -27,6 +27,13 @@ $parameters = [
 
 ## View
 
+#### Error returned
+```
+{
+    "error": "true"
+}
+```
+
 ### Url : http://localhost/api/
 
 ```
@@ -152,3 +159,31 @@ $parameters = [
     }
 ]
 ```
+
+### http://localhost/api/view/articles/parameters/id,titre
+
+```
+    [
+    {
+        "id": "1",
+        "titre": "Test 1"
+    },
+    {
+        "id": "2",
+        "titre": "Test 2"
+    },
+    {
+        "id": "3",
+        "titre": "Test 3"
+    }
+]
+```
+
+## Order of the parameters of the url
+
++ order
++ limit
++ parameters
++ order/limit
++ order/limit/parameters
++ limit/parameters

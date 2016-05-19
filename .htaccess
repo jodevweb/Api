@@ -2,7 +2,15 @@ Options +FollowSymlinks
 RewriteEngine On
 
 RewriteRule ^/$ index.php [L]
+
 RewriteRule ^view/([a-z,A-Z]+)$ index.php?filtre=$1 [L]
+
 RewriteRule ^view/([a-z,A-Z]+)/order/([a-z,A-Z]+)$ index.php?filtre=$1&order=$2 [L]
 RewriteRule ^view/([a-z,A-Z]+)/limit/([0-9+])$ index.php?filtre=$1&limit=$2 [L]
+RewriteRule ^view/([a-z,A-Z]+)/parameters/(.*)$ index.php?filtre=$1&param=$2 [L]
+
 RewriteRule ^view/([a-z,A-Z]+)/order/([a-z,A-Z]+)/limit/([0-9+])$ index.php?filtre=$1&order=$2&limit=$3 [L]
+RewriteRule ^view/([a-z,A-Z]+)/order/([a-z,A-Z]+)/parameters/(.*)$ index.php?filtre=$1&order=$2&param=$3 [L]
+RewriteRule ^view/([a-z,A-Z]+)/limit/([0-9+])/parameters/(.*)$ index.php?filtre=$1&limit=$2&param=$3 [L]
+
+RewriteRule ^view/([a-z,A-Z]+)/order/([a-z,A-Z]+)/limit/([0-9+])/parameters/(.*)$ index.php?filtre=$1&order=$2&limit=$3&param=$4 [L]

@@ -12,6 +12,7 @@ $api = new \API\api($parameters);
 $getTable = (!empty($_GET['filtre'])) ? $_GET['filtre'] : false;
 $getOrder = (!empty($_GET['order'])) ? $_GET['order'] : false;
 $getLimit = (!empty($_GET['limit'])) ? $_GET['limit'] : false;
+$getParam = (!empty($_GET['param'])) ? $_GET['param'] : false;
 ?>
 
 <?php if (!$_GET): ?>
@@ -29,6 +30,7 @@ $getLimit = (!empty($_GET['limit'])) ? $_GET['limit'] : false;
         'table' => $getTable,
         'order' => $getOrder,
         'limit' => $getLimit,
+        'param' => $getParam,
     ]);
     ?>
 

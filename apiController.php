@@ -52,7 +52,7 @@ class api
 
     public function showJson($params)
     {
-        if ($params['limit']):
+        if ($params['limit'] && intval($params['limit'])):
             $params['limit'] = ' LIMIT ' . intval($params['limit']);
         else:
             $params['limit'] = false;
@@ -64,8 +64,12 @@ class api
             $params['order'] = false;
         endif;
 
+        if (!$params['param']):
+            $params['param'] = '*';
+        endif;
+
         if (in_array($params['table'], $this->showTables()) && in_array($params['table'], $this->restriction)) {
-            $query = $this->connect()->prepare('SELECT * FROM ' . $params['table'] . $params['order'] . $params['limit']);
+            $query = $this->connect()->prepare('SELECT ' . $params['param'] . ' FROM ' . $params['table'] . $params['order'] . $params['limit']);
             $query->execute();
 
             header('Content-Type: application/json');
