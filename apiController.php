@@ -68,9 +68,13 @@ class api
             $query = $this->connect()->prepare('SELECT * FROM ' . $params['table'] . $params['order'] . $params['limit']);
             $query->execute();
 
-            return json_encode($query->fetchAll());
+            header('Content-Type: application/json');
+
+            return json_encode($query->fetchAll(\PDO::FETCH_ASSOC), JSON_PRETTY_PRINT);
         } else {
-            return 'Error';
+            header('Content-Type: application/json');
+
+            return json_encode(['error' => 'true'], JSON_PRETTY_PRINT);
         }
     }
 }
