@@ -18,7 +18,7 @@ $getLimit = (!empty($_GET['limit'])) ? $_GET['limit'] : false;
 
     <ul>
         <?php foreach ($api->showTables() as $allTables): ?>
-            <li><a href="?filtre=<?php echo $allTables; ?>"><?php echo $allTables; ?></a></li>
+            <li><a href="view/<?php echo $allTables; ?>"><?php echo $allTables; ?></a></li>
         <?php endforeach; ?>
     </ul>
 

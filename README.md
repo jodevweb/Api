@@ -34,7 +34,7 @@ $parameters = [
 + articles
 ```
 
-#### http://localhost/api/?filtre=articles
+#### http://localhost/api/view/articles
 
 ```
     [
@@ -59,7 +59,7 @@ $parameters = [
     ?>
 ```
 
-### http://localhost/api/?filtre=articles&order=DESC
+### http://localhost/api/view/articles/order/desc
 
 ```
     [
@@ -72,7 +72,7 @@ $parameters = [
 ]
 ```
 
-### http://localhost/api/?filtre=articles&limit=4
+### http://localhost/api/view/articles/limit/4
 
 ```
     [
@@ -103,7 +103,7 @@ $parameters = [
 ]
 ```
 
-### http://localhost/api/?filtre=articles&order=ASC&limit=7
+### http://localhost/api/view/articles/order/asc/limit/7
 
 ```
 
