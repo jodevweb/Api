@@ -20,7 +20,7 @@ $parameters = [
     'password' => '',
     'restriction' => [
         'articles',
-        'images',
+        'profile',
     ]
 ];
 ```
@@ -103,7 +103,7 @@ $parameters = [
 ]
 ```
 
-### http://localhost/api/?filtre=articles&order=ASC&limit=30
+### http://localhost/api/?filtre=articles&order=ASC&limit=7
 
 ```
 
