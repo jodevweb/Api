@@ -16,6 +16,8 @@ class api
     private $connect;
     private $tables = [];
     private $restriction = [];
+    private $champsExist = [];
+    private $paramsFinal = [];
 
     public function __construct($params)
     {
@@ -64,13 +66,44 @@ class api
             $params['order'] = false;
         endif;
 
-        if (!$params['param']):
-            $params['param'] = '*';
-        endif;
-
         if (in_array($params['table'], $this->showTables()) && in_array($params['table'], $this->restriction)) {
-            $query = $this->connect()->prepare('SELECT ' . $params['param'] . ' FROM ' . $params['table'] . $params['order'] . $params['limit']);
-            $query->execute();
+
+            $describe = $this->connect()->prepare('DESCRIBE ' . $params['table']);
+            $describe->execute();
+
+            if ($params['param']):
+                $params['param'] = explode(',', $params['param']);
+
+                foreach ($describe->fetchAll() as $key => $parametres) {
+                    $this->champsExist = array_merge($this->champsExist, [$parametres[0]]);
+                }
+
+                foreach ($params['param'] as $paramsExist) {
+                    if (in_array($paramsExist, $this->champsExist)) {
+                        $this->paramsFinal = array_merge($this->paramsFinal, [$paramsExist]);
+                    }
+                }
+
+                if (!$this->paramsFinal):
+                    $params['param'] = '*';
+                endif;
+
+            else:
+                $params['param'] = '*';
+            endif;
+
+            if ($params['param'] != '*') {
+                $params['param'] = implode(',', $this->paramsFinal);
+                $query = $this->connect()->prepare('SELECT ' . $params['param'] . ' FROM ' . $params['table'] . $params['order'] . $params['limit']);
+                $query->execute();
+            } elseif ($params['param'] == '*') {
+                $query = $this->connect()->prepare('SELECT * FROM ' . $params['table'] . $params['order'] . $params['limit']);
+                $query->execute();
+            } else {
+                header('Content-Type: application/json');
+
+                return json_encode(['error' => 'true'], JSON_PRETTY_PRINT);
+            }
 
             header('Content-Type: application/json');
 
