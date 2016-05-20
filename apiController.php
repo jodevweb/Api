@@ -41,7 +41,7 @@ class api
         $query->execute();
 
         foreach ($query->fetchAll() as $allTables) {
-            if (in_array($allTables[0], $this->restriction)) {
+            if (in_array($allTables[0], $this->restriction['tables'])) {
                 $this->tables = array_merge($allTables, $this->tables);
             }
         }
@@ -66,7 +66,7 @@ class api
             $params['order'] = false;
         endif;
 
-        if (in_array($params['table'], $this->showTables()) && in_array($params['table'], $this->restriction)) {
+        if (in_array($params['table'], $this->showTables()) && in_array($params['table'], $this->restriction['tables'])) {
 
             $describe = $this->connect()->prepare('DESCRIBE ' . $params['table']);
             $describe->execute();
@@ -75,7 +75,9 @@ class api
                 $params['param'] = explode(',', $params['param']);
 
                 foreach ($describe->fetchAll() as $key => $parametres) {
-                    $this->champsExist = array_merge($this->champsExist, [$parametres[0]]);
+                    if (!in_array($parametres[0], $this->restriction['parameters'])) {
+                        $this->champsExist = array_merge($this->champsExist, [$parametres[0]]);
+                    }
                 }
 
                 foreach ($params['param'] as $paramsExist) {

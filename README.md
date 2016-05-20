@@ -19,8 +19,13 @@ $parameters = [
     'user' => 'root',
     'password' => '',
     'restriction' => [
-        'articles',
-        'profile',
+        'tables' => [
+            'articles',
+            'profile',
+        ],
+        'parameters' => [
+            'user_id',
+        ]
     ]
 ];
 ```
@@ -161,6 +166,25 @@ $parameters = [
 ```
 
 ### http://localhost/api/view/articles/parameters/id,titre
+
+```
+    [
+    {
+        "id": "1",
+        "titre": "Test 1"
+    },
+    {
+        "id": "2",
+        "titre": "Test 2"
+    },
+    {
+        "id": "3",
+        "titre": "Test 3"
+    }
+]
+```
+
+### http://localhost/api/view/articles/parameters/id,titre,user_id
 
 ```
     [

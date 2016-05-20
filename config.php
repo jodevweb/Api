@@ -17,7 +17,12 @@ $parameters = [
     'user' => 'root',
     'password' => '',
     'restriction' => [
-        'articles',
-        'profile',
+        'tables' => [
+            'articles',
+            'profile',
+        ],
+        'parameters' => [
+            'id',
+        ]
     ]
 ];
