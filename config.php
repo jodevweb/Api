@@ -8,7 +8,8 @@
  * @database: nom de votre base de donnée
  * @user: nom d'utilisateur de votre base de donnée
  * @password: mot de passe de votre base de donnée
- * @restriction: @array: liste des tables que vous souhaitez rendre accéssible
+ * @restriction: @array: Tables [ liste des tables que vous souhaitez rendre accéssible ] Parameters [ liste des champs que vous souhaitez rendre accéssible ]
+ * @ApiKey: @array: false pour désactiver, true pour activer la demande de token
  */
 
 $parameters = [
@@ -24,5 +25,11 @@ $parameters = [
         'parameters' => [
             'id',
         ]
+    ],
+    'ApiKey' => [
+        'GET' => false,
+        'POST' => false,
+        'PUT' => false,
+        'DELETE' => true,
     ]
 ];

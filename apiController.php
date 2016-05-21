@@ -18,6 +18,7 @@ class api
     private $restriction = [];
     private $champsExist = [];
     private $paramsFinal = [];
+    private $key;
 
     public function __construct($params)
     {
@@ -27,6 +28,7 @@ class api
         $this->host = $params['host'];
 
         $this->restriction = $params['restriction'];
+
     }
 
     public function connect()
@@ -46,9 +48,36 @@ class api
             }
         }
 
-        unset($this->tables['Tables_in_project1']);
-
+        unset($this->tables['Tables_in_' . $this->database]);
         return $this->tables;
+    }
+
+    public function generateKey($len = 16)
+    {
+        $data = openssl_random_pseudo_bytes($len);
+
+        $data[6] = chr(ord($data[6]) & 0x0f | 0x40);
+        $data[8] = chr(ord($data[8]) & 0x3f | 0x80);
+
+        $this->key = vsprintf('%s%s%s%s%s%s%s%s', str_split(bin2hex($data), 4));
+
+        $query = $this->connect()->prepare('SHOW TABLES');
+        $query->execute();
+
+        foreach ($query->fetchAll() as $allTables) {
+            if ($allTables['Tables_in_' . $this->database] == "apikey") {
+                $addKey = $this->connect()->prepare('INSERT INTO apikey (value) VALUES(:key)');
+                $addKey->execute([':key' => $this->key]);
+                return $this->key;
+            } else {
+                $addTableKey = $this->connect()->prepare('CREATE TABLE apikey (id INT(11) AUTO_INCREMENT PRIMARY KEY, value VARCHAR(30) NOT NULL)');
+                $addTableKey->execute();
+
+                $addKey = $this->connect()->prepare('INSERT INTO apikey (value) VALUES(:key)');
+                $addKey->execute([':key' => $this->key]);
+                return $this->key;
+            }
+        }
     }
 
 
@@ -103,16 +132,13 @@ class api
                 $query->execute();
             } else {
                 header('Content-Type: application/json');
-
                 return json_encode(['error' => 'true'], JSON_PRETTY_PRINT);
             }
 
             header('Content-Type: application/json');
-
             return json_encode($query->fetchAll(\PDO::FETCH_ASSOC), JSON_PRETTY_PRINT);
         } else {
             header('Content-Type: application/json');
-
             return json_encode(['error' => 'true'], JSON_PRETTY_PRINT);
         }
     }

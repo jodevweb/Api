@@ -15,7 +15,7 @@ $getLimit = (!empty($_GET['limit'])) ? $_GET['limit'] : false;
 $getParam = (!empty($_GET['param'])) ? $_GET['param'] : false;
 ?>
 
-<?php if (!$_GET): ?>
+<?php if (!$_GET AND empty($_GET['generateKey'])): ?>
 
     <ul>
         <?php foreach ($api->showTables() as $allTables): ?>
@@ -23,8 +23,12 @@ $getParam = (!empty($_GET['param'])) ? $_GET['param'] : false;
         <?php endforeach; ?>
     </ul>
 
-<?php else: ?>
+    <a href="generateKey/">Generate Key</a>
+<?php elseif (!empty($_GET['generateKey'])): ?>
 
+    <?php echo $api->generateKey(); ?>
+
+<?php else: ?>
     <?php
     echo $api->showJson([
         'table' => $getTable,

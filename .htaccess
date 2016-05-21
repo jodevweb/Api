@@ -3,6 +3,8 @@ RewriteEngine On
 
 RewriteRule ^/$ index.php [L]
 
+RewriteRule ^generateKey/$ index.php?generateKey=1 [L]
+
 RewriteRule ^view/([a-z,A-Z]+)$ index.php?filtre=$1 [L]
 
 RewriteRule ^view/([a-z,A-Z]+)/order/([a-z,A-Z]+)$ index.php?filtre=$1&order=$2 [L]
