@@ -43,8 +43,6 @@ $parameters = [
 ];
 ```
 
-## View
-
 #### Error returned
 ```
 {
@@ -58,6 +56,9 @@ $parameters = [
 + profile
 + articles
 ```
+
+## GET
+
 
 #### http://localhost/api/view/articles
 
@@ -138,6 +139,7 @@ $parameters = [
 
 ## Generate a ApiKey
 ### http://localhost/api/generateKey/
+
 
 ## Order of the parameters of the url
 
