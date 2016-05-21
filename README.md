@@ -24,8 +24,14 @@ $parameters = [
             'profile',
         ],
         'parameters' => [
-            'user_id',
+            'id',
         ]
+    ],
+    'ApiKey' => [
+        'GET' => false,
+        'POST' => false,
+        'PUT' => false,
+        'DELETE' => true,
     ]
 ];
 ```
