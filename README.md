@@ -73,7 +73,7 @@ $parameters = [
 ]
 ```
 
-### http://localhost/api/view/articles/order/desc
+#### http://localhost/api/view/articles/order/desc
 
 ```
     [
@@ -86,7 +86,7 @@ $parameters = [
 ]
 ```
 
-### http://localhost/api/view/articles/limit/4
+#### http://localhost/api/view/articles/limit/4
 
 ```
     [
@@ -118,7 +118,7 @@ $parameters = [
 ```
 
 
-### http://localhost/api/view/articles/parameters/id,titre,user_id
+#### http://localhost/api/view/articles/parameters/id,titre,user_id
 
 ```
     [
@@ -140,10 +140,16 @@ $parameters = [
 ## ApiKey
 
 ### Generate a ApiKey
-#### http://localhost/api/generateKey/
+
+```
+http://localhost/api/generateKey/
+```
 
 ### Use a ApiKey
-#### http://localhost/api/view/articles/apikey/d8ac17509ccf43188b7fdfed9c1b283a
+
+```
+http://localhost/api/view/articles/apikey/d8ac17509ccf43188b7fdfed9c1b283a
+```
 
 ### Error returned
 
@@ -155,9 +161,9 @@ $parameters = [
 
 ## Order of the parameters of the url
 
-+ order
-+ limit
-+ parameters
-+ order/limit
-+ order/limit/parameters
-+ limit/parameters
+1. order
+2. limit
+3. parameters
+4. order/limit
+5. order/limit/parameters
+6. limit/parameters
