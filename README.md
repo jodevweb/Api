@@ -117,7 +117,7 @@ $parameters = [
 ```
 
 
-### http://localhost/api/view/articles/parameters/id,titre
+### http://localhost/api/view/articles/parameters/id,titre,user_id
 
 ```
     [
@@ -136,6 +136,8 @@ $parameters = [
 ]
 ```
 
+## Generate a ApiKey
+### http://localhost/api/generateKey/
 
 ## Order of the parameters of the url
 
