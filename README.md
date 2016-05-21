@@ -12,6 +12,13 @@ git clone https://github.com/jodevweb/Api.git
 
 ### File: config.php
 
+ - @host: host your database
+ - @database: name of your database
+ - @user: username of your database
+ - @password: password of your database
+ - @restriction: @array: Tables [Tables list you want to view] Parameters [list of fields that you wish to view]
+ - @ApiKey: @array: false to disable, true to enable request token
+
 ```
 $parameters = [
     'host' => 'localhost',
@@ -65,18 +72,6 @@ $parameters = [
 ]
 ```
 
-## Parameters
-
-```
-    <?php
-    echo $api->showJson([
-        'table' => $getTable,
-        'order' => $getOrder,
-        'limit' => $getLimit,
-    ]);
-    ?>
-```
-
 ### http://localhost/api/view/articles/order/desc
 
 ```
@@ -121,55 +116,6 @@ $parameters = [
 ]
 ```
 
-### http://localhost/api/view/articles/order/asc/limit/7
-
-```
-
-    [
-    {
-        "id": "1",
-        "titre": "Test 1",
-        "contenu": "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.\r\n\r\nView details \u00bb\r\n",
-        "user_id": "1"
-    },
-    {
-        "id": "2",
-        "titre": "Test 2",
-        "contenu": "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.\r\n\r\nView details \u00bb\r\n",
-        "user_id": "1"
-    },
-    {
-        "id": "3",
-        "titre": "Test 3",
-        "contenu": "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.\r\n\r\nView details \u00bb\r\n",
-        "user_id": "1"
-    },
-    {
-        "id": "4",
-        "titre": "fefefef",
-        "contenu": "    efefef",
-        "user_id": "1"
-    },
-    {
-        "id": "5",
-        "titre": "fzfzeg",
-        "contenu": "    zgze",
-        "user_id": "1"
-    },
-    {
-        "id": "6",
-        "titre": "fzegze",
-        "contenu": "    gzegez",
-        "user_id": "1"
-    },
-    {
-        "id": "7",
-        "titre": "fergergergerhgrthrthrthrthrthrt",
-        "contenu": "    eherhegerhdjrtbtybutryjtrynbrtyiknbtyinrtubfdurd udrtuyberturdbvrd fbret",
-        "user_id": "1"
-    }
-]
-```
 
 ### http://localhost/api/view/articles/parameters/id,titre
 
@@ -190,24 +136,6 @@ $parameters = [
 ]
 ```
 
-### http://localhost/api/view/articles/parameters/id,titre,user_id
-
-```
-    [
-    {
-        "id": "1",
-        "titre": "Test 1"
-    },
-    {
-        "id": "2",
-        "titre": "Test 2"
-    },
-    {
-        "id": "3",
-        "titre": "Test 3"
-    }
-]
-```
 
 ## Order of the parameters of the url
 
