@@ -1,18 +1,34 @@
+## A REFAIRE
+
 Options +FollowSymlinks
 RewriteEngine On
 
 RewriteRule ^/$ index.php [L]
 
-RewriteRule ^generateKey/$ index.php?generateKey=1 [L]
+RewriteRule ^generateKey/$ index.php?generateKey=1&action=generate [L]
 
-RewriteRule ^view/([a-z,A-Z]+)$ index.php?filtre=$1 [L]
+## GET
+RewriteRule ^view/([a-z,A-Z]+)$ index.php?filtre=$1&action=get [L]
 
-RewriteRule ^view/([a-z,A-Z]+)/order/([a-z,A-Z]+)$ index.php?filtre=$1&order=$2 [L]
-RewriteRule ^view/([a-z,A-Z]+)/limit/([0-9+])$ index.php?filtre=$1&limit=$2 [L]
-RewriteRule ^view/([a-z,A-Z]+)/parameters/(.*)$ index.php?filtre=$1&param=$2 [L]
+RewriteRule ^view/([a-z,A-Z]+)/order/([a-z,A-Z]+)$ index.php?filtre=$1&order=$2&action=get [L]
+RewriteRule ^view/([a-z,A-Z]+)/limit/([0-9+])$ index.php?filtre=$1&limit=$2&action=get [L]
+RewriteRule ^view/([a-z,A-Z]+)/parameters/(.*)$ index.php?filtre=$1&param=$2&action=get [L]
 
-RewriteRule ^view/([a-z,A-Z]+)/order/([a-z,A-Z]+)/limit/([0-9+])$ index.php?filtre=$1&order=$2&limit=$3 [L]
-RewriteRule ^view/([a-z,A-Z]+)/order/([a-z,A-Z]+)/parameters/(.*)$ index.php?filtre=$1&order=$2&param=$3 [L]
-RewriteRule ^view/([a-z,A-Z]+)/limit/([0-9+])/parameters/(.*)$ index.php?filtre=$1&limit=$2&param=$3 [L]
+RewriteRule ^view/([a-z,A-Z]+)/order/([a-z,A-Z]+)/limit/([0-9+])$ index.php?filtre=$1&order=$2&limit=$3&action=get [L]
+RewriteRule ^view/([a-z,A-Z]+)/order/([a-z,A-Z]+)/parameters/(.*)$ index.php?filtre=$1&order=$2&param=$3&action=get [L]
+RewriteRule ^view/([a-z,A-Z]+)/limit/([0-9+])/parameters/(.*)$ index.php?filtre=$1&limit=$2&param=$3&action=get [L]
 
-RewriteRule ^view/([a-z,A-Z]+)/order/([a-z,A-Z]+)/limit/([0-9+])/parameters/(.*)$ index.php?filtre=$1&order=$2&limit=$3&param=$4 [L]
+RewriteRule ^view/([a-z,A-Z]+)/order/([a-z,A-Z]+)/limit/([0-9+])/parameters/(.*)$ index.php?filtre=$1&order=$2&limit=$3&param=$4&action=get [L]
+
+## GET API
+RewriteRule ^view/([a-z,A-Z]+)/apikey/(.*)$ index.php?filtre=$1&action=get&apikey=$2 [L]
+
+RewriteRule ^view/([a-z,A-Z]+)/order/([a-z,A-Z]+)/apikey/(.*)$ index.php?filtre=$1&order=$2&action=get&apikey=$3 [L]
+RewriteRule ^view/([a-z,A-Z]+)/limit/([0-9+])/apikey/(.*)$ index.php?filtre=$1&limit=$2&action=get&apikey=$3 [L]
+RewriteRule ^view/([a-z,A-Z]+)/parameters/(.*)/apikey/(.*)$ index.php?filtre=$1&param=$2&action=get&apikey=$3 [L]
+
+RewriteRule ^view/([a-z,A-Z]+)/order/([a-z,A-Z]+)/limit/([0-9+])/apikey/(.*)$ index.php?filtre=$1&order=$2&limit=$3&action=get [L]
+RewriteRule ^view/([a-z,A-Z]+)/order/([a-z,A-Z]+)/parameters/(.*)/apikey/(.*)$ index.php?filtre=$1&order=$2&param=$3&action=get&apikey=$4 [L]
+RewriteRule ^view/([a-z,A-Z]+)/limit/([0-9+])/parameters/(.*)/apikey/(.*)$ index.php?filtre=$1&limit=$2&param=$3&action=get&apikey=$4 [L]
+
+RewriteRule ^view/([a-z,A-Z]+)/order/([a-z,A-Z]+)/limit/([0-9+])/parameters/(.*)/apikey/(.*)$ index.php?filtre=$1&order=$2&limit=$3&param=$4&action=get&apikey=$5 [L]

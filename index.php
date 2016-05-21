@@ -18,7 +18,7 @@ $getParam = (!empty($_GET['param'])) ? $_GET['param'] : false;
 <?php if (!$_GET AND empty($_GET['generateKey'])): ?>
 
     <ul>
-        <?php foreach ($api->showTables() as $allTables): ?>
+        <?php foreach ($api->tablesRestriction() as $allTables): ?>
             <li><a href="view/<?php echo $allTables; ?>"><?php echo $allTables; ?></a></li>
         <?php endforeach; ?>
     </ul>

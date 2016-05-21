@@ -19,6 +19,8 @@ class api
     private $champsExist = [];
     private $paramsFinal = [];
     private $key;
+    private $action;
+    private $ApiKey;
 
     public function __construct($params)
     {
@@ -28,6 +30,24 @@ class api
         $this->host = $params['host'];
 
         $this->restriction = $params['restriction'];
+        $this->ApiKey = $params['ApiKey'];
+
+        if (!empty($_GET['action'])) {
+
+            if ($_GET['action'] == "get") {
+                $this->action = "GET";
+            } elseif ($_GET['action'] == "post") {
+                $this->action = "POST";
+            } elseif ($_GET['action'] == "put") {
+                $this->action = "PUT";
+            } elseif ($_GET['action'] == "delete") {
+                $this->action = "DELETE";
+            } else {
+                $this->action = false;
+            }
+        } else {
+            $this->action = false;
+        }
 
     }
 
@@ -42,13 +62,19 @@ class api
         $query = $this->connect()->prepare('SHOW TABLES');
         $query->execute();
 
-        foreach ($query->fetchAll() as $allTables) {
+        return $query->fetchAll();
+    }
+
+    public function tablesRestriction()
+    {
+        foreach ($this->showTables() as $allTables) {
             if (in_array($allTables[0], $this->restriction['tables'])) {
                 $this->tables = array_merge($allTables, $this->tables);
             }
         }
 
         unset($this->tables['Tables_in_' . $this->database]);
+
         return $this->tables;
     }
 
@@ -61,10 +87,7 @@ class api
 
         $this->key = vsprintf('%s%s%s%s%s%s%s%s', str_split(bin2hex($data), 4));
 
-        $query = $this->connect()->prepare('SHOW TABLES');
-        $query->execute();
-
-        foreach ($query->fetchAll() as $allTables) {
+        foreach ($this->showTables() as $allTables) {
             if ($allTables['Tables_in_' . $this->database] == "apikey") {
                 $addKey = $this->connect()->prepare('INSERT INTO apikey (value) VALUES(:key)');
                 $addKey->execute([':key' => $this->key]);
@@ -80,9 +103,33 @@ class api
         }
     }
 
-
-    public function showJson($params)
+    public function getApiKey($key)
     {
+        $ApiKey = $this->connect()->prepare('SELECT value FROM apikey WHERE value = :value');
+        $ApiKey->execute([':value' => $key]);
+
+        return $ApiKey->fetch();
+    }
+
+    public function verifyApiKey()
+    {
+        if (empty($_GET['apikey']) OR $this->getApiKey($_GET['apikey']) === false) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function showGet($params)
+    {
+        if ($this->ApiKey['GET'] === TRUE) {
+            if ($this->verifyApiKey() === false) {
+                header('Content-Type: application/json');
+                return json_encode(['error' => 'ApiKey not found'], JSON_PRETTY_PRINT);
+            }
+        }
+
+
         if ($params['limit'] && intval($params['limit'])):
             $params['limit'] = ' LIMIT ' . intval($params['limit']);
         else:
@@ -95,7 +142,7 @@ class api
             $params['order'] = false;
         endif;
 
-        if (in_array($params['table'], $this->showTables()) && in_array($params['table'], $this->restriction['tables'])) {
+        if (in_array($params['table'], $this->tablesRestriction()) && in_array($params['table'], $this->restriction['tables'])) {
 
             $describe = $this->connect()->prepare('DESCRIBE ' . $params['table']);
             $describe->execute();
@@ -132,7 +179,7 @@ class api
                 $query->execute();
             } else {
                 header('Content-Type: application/json');
-                return json_encode(['error' => 'true'], JSON_PRETTY_PRINT);
+                return json_encode(['error' => 'Parameters not found'], JSON_PRETTY_PRINT);
             }
 
             header('Content-Type: application/json');
@@ -140,6 +187,34 @@ class api
         } else {
             header('Content-Type: application/json');
             return json_encode(['error' => 'true'], JSON_PRETTY_PRINT);
+        }
+    }
+
+    public function showPost()
+    {
+
+    }
+
+    public function showPut()
+    {
+
+    }
+
+    public function showDelete()
+    {
+
+    }
+
+    public function showJson($params)
+    {
+        if ($this->action == "GET") {
+            echo $this->showGet($params);
+        } elseif ($this->action == "POST") {
+            echo $this->showPost($params);
+        } elseif ($this->action == "PUT") {
+            echo $this->showPut($params);
+        } elseif ($this->action == "DELETE") {
+            echo $this->showDelete($params);
         }
     }
 }

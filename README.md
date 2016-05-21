@@ -137,9 +137,21 @@ $parameters = [
 ]
 ```
 
-## Generate a ApiKey
-### http://localhost/api/generateKey/
+## ApiKey
 
+### Generate a ApiKey
+#### http://localhost/api/generateKey/
+
+### Use a ApiKey
+#### http://localhost/api/view/articles/apikey/d8ac17509ccf43188b7fdfed9c1b283a
+
+### Error returned
+
+```
+    {
+    "error": "ApiKey not found"
+}
+```
 
 ## Order of the parameters of the url
 

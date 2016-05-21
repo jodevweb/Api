@@ -27,7 +27,7 @@ $parameters = [
         ]
     ],
     'ApiKey' => [
-        'GET' => false,
+        'GET' => true,
         'POST' => false,
         'PUT' => false,
         'DELETE' => true,
