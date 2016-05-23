@@ -19,7 +19,7 @@ git clone https://github.com/jodevweb/Api.git
  - @restriction: @array: Tables [Tables list you want to view] Parameters [list of fields that you wish to view]
  - @ApiKey: @array: false to disable, true to enable request token
 
-```
+```php
 $parameters = [
     'host' => 'localhost',
     'database' => 'project1',
@@ -46,7 +46,7 @@ $parameters = [
 ```
 
 #### Error returned
-```
+```json
 {
     "error": "true"
 }
@@ -64,7 +64,7 @@ $parameters = [
 
 #### http://localhost/api/view/articles
 
-```
+```json
     [
     {
         "id": "1",
@@ -77,7 +77,7 @@ $parameters = [
 
 #### http://localhost/api/view/articles/order/desc
 
-```
+```json
     [
     {
         "id": "7",
@@ -90,7 +90,7 @@ $parameters = [
 
 #### http://localhost/api/view/articles/limit/4
 
-```
+```json
     [
     {
         "id": "1",
@@ -122,7 +122,7 @@ $parameters = [
 
 #### http://localhost/api/view/articles/parameters/id,titre,user_id
 
-```
+```json
     [
     {
         "id": "1",
@@ -155,7 +155,7 @@ http://localhost/api/view/articles/apikey/d8ac17509ccf43188b7fdfed9c1b283a
 
 ### Error returned
 
-```
+```json
     {
     "error": "ApiKey not found"
 }
@@ -176,7 +176,7 @@ http://localhost/api/view/articles/apikey/d8ac17509ccf43188b7fdfed9c1b283a
 
 **Configuration :**
 
-```
+```php
 $fields = array(
     'params' => array(
         'apikey' => 'd8ac17509ccf43188b7fdfed9c1b283a',
@@ -198,7 +198,7 @@ $fields = array(
 
 ### Error reported
 
-```
+```json
 { "error": "ApiKey not found" }
 { "error": "true", "message": "parameters field not accepted" }
 ```
