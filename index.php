@@ -13,9 +13,10 @@ $getTable = (!empty($_GET['filtre'])) ? $_GET['filtre'] : false;
 $getOrder = (!empty($_GET['order'])) ? $_GET['order'] : false;
 $getLimit = (!empty($_GET['limit'])) ? $_GET['limit'] : false;
 $getParam = (!empty($_GET['param'])) ? $_GET['param'] : false;
+$postParams = (!empty($_POST['params'])) ? $_POST['params'] : false;
 ?>
 
-<?php if (!$_GET AND empty($_GET['generateKey'])): ?>
+<?php if (!$_GET AND empty($_GET['generateKey']) AND !$_POST): ?>
 
     <ul>
         <?php foreach ($api->tablesRestriction() as $allTables): ?>
@@ -35,6 +36,7 @@ $getParam = (!empty($_GET['param'])) ? $_GET['param'] : false;
         'order' => $getOrder,
         'limit' => $getLimit,
         'param' => $getParam,
+        'postParams' => $postParams,
     ]);
     ?>
 

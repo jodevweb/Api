@@ -32,3 +32,6 @@ RewriteRule ^view/([a-z,A-Z]+)/order/([a-z,A-Z]+)/parameters/(.*)/apikey/(.*)$ i
 RewriteRule ^view/([a-z,A-Z]+)/limit/([0-9+])/parameters/(.*)/apikey/(.*)$ index.php?filtre=$1&limit=$2&param=$3&action=get&apikey=$4 [L]
 
 RewriteRule ^view/([a-z,A-Z]+)/order/([a-z,A-Z]+)/limit/([0-9+])/parameters/(.*)/apikey/(.*)$ index.php?filtre=$1&order=$2&limit=$3&param=$4&action=get&apikey=$5 [L]
+
+## POST
+RewriteRule ^add$ index.php?action=post [L]

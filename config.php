@@ -23,7 +23,9 @@ $parameters = [
             'profile',
         ],
         'parameters' => [
-            'id',
+            'titre',
+            'contenu',
+            'user_id'
         ]
     ],
     'ApiKey' => [
