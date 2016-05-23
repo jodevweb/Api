@@ -31,11 +31,13 @@ $parameters = [
             'profile',
         ],
         'parameters' => [
-            'id',
+            'titre',
+            'contenu',
+            'user_id'
         ]
     ],
     'ApiKey' => [
-        'GET' => false,
+        'GET' => true,
         'POST' => false,
         'PUT' => false,
         'DELETE' => true,
@@ -167,3 +169,23 @@ http://localhost/api/view/articles/apikey/d8ac17509ccf43188b7fdfed9c1b283a
 4. order/limit
 5. order/limit/parameters
 6. limit/parameters
+
+## POST
+
+### URL : http://localhost/api/add
+
+**Configuration :**
+
+```
+$fields = array(
+    'params' => array(
+        'apikey' => 'd8ac17509ccf43188b7fdfed9c1b283a',
+        'table' => 'articles',
+        'params' => array(
+            'titre'     => 'MyTitle',
+            'contenu'   => 'MyConte<strong>nu</strong>...',
+            'user_id'   => '2',
+        ),
+    )
+);
+```
