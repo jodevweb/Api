@@ -236,6 +236,13 @@ class api
                 foreach ($this->describeTable($params['postParams']['table']) as $key => $parametres) {
                     if (in_array($parametres[0], $this->restriction['parameters'])) {
                         $this->champsExist = array_merge($this->champsExist, [$parametres[0]]);
+                    } else {
+                        if ($parametres[0] != "id") {
+                            header('Content-Type: application/json');
+                            return json_encode(['error' => 'true', 'message' => 'parameters field not accepted'], JSON_PRETTY_PRINT);
+                        } else {
+                            $this->champsExist = array_merge($this->champsExist, [$parametres[0]]);
+                        }
                     }
                 }
 

@@ -189,3 +189,16 @@ $fields = array(
     )
 );
 ```
+
+### Success response
+
+```json
+{ "success": "true" }
+```
+
+### Error reported
+
+```
+{ "error": "ApiKey not found" }
+{ "error": "true", "message": "parameters field not accepted" }
+```
