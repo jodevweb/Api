@@ -190,6 +190,27 @@ $fields = array(
 );
 ```
 
+## PUT
+
+### URL : http://localhost/api/update
+
+**Configuration :**
+
+```php
+$fields = array(
+    'params' => array(
+        'apikey' => 'd8ac17509ccf43188b7fdfed9c1b283a',
+        'table' => 'articles',
+        'params' => array(
+            'titre'     => 'MyTitle',
+            'contenu'   => 'new contenu',
+            'user_id'   => '2',
+        ),
+        'id' => '3',
+    )
+);
+```
+
 ### Success response
 
 ```json
