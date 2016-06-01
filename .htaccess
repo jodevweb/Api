@@ -38,3 +38,6 @@ RewriteRule ^add$ index.php?action=post [L]
 
 ## PUT
 RewriteRule ^update$ index.php?action=put [L]
+
+## DELETE
+RewriteRule ^delete index.php?action=delete [L]

@@ -1,8 +1,8 @@
 <?php
 /**
- * User: Jordan Usoulet
- * Date: 18/05/2016
- * Time: 20:03
+ * @author Jordan Usoulet
+ * @date 18/05/2016
+ * @url http://jordan-usoulet.fr/
  */
 
 namespace API;
@@ -319,7 +319,7 @@ class api
                 if ($this->paramsFinal) {
                     $params['postParams']['params'] = implode(',', $this->paramsFinal);
                     $this->valuesRequete = stripslashes(substr($this->valuesRequete, 0, -2));
-                    $insert = $this->connect()->prepare('UPDATE ' . $params['postParams']['table'] . ' SET ' . $this->valuesRequete . ' WHERE id = ' . $params['postParams']['id']);
+                    $insert = $this->connect()->prepare('UPDATE ' . $params['postParams']['table'] . ' SET ' . $this->valuesRequete . ' WHERE ' . $params['postParams']['ident']['name'] . ' = ' . $params['postParams']['ident']['value']);
                     $insert->execute();
 
                     header('Content-Type: application/json');
@@ -340,7 +340,57 @@ class api
 
     public function showDelete($params)
     {
+        // Si l'action POST demande une key API
+        if ($this->ApiKey['DELETE'] === TRUE) {
+            if ($this->verifyApiKey('DELETE') === false) { // Si la key API n'est pas reconnue
+                // On renvoie une erreur
+                header('Content-Type: application/json');
+                return json_encode(['error' => 'ApiKey not found'], JSON_PRETTY_PRINT);
+            }
+        }
 
+        // Sinon on continue
+        if (!empty($params['postParams'])) {
+            // On récupère la table POST paramètre
+            if ($params['postParams']['table']) {
+                // On boucle les paramètres de la table POST paramètre avec la fonction describe
+                foreach ($this->describeTable($params['postParams']['table']) as $key => $parametres) {
+                    // Si les paramètres POST sont tous accepté (via config.php)
+                    if (in_array($parametres[0], $this->restriction['parameters'])) {
+                        $this->champsExist = array_merge($this->champsExist, [$parametres[0]]); // On récupère la liste des champs OK
+                    } else { // Sinon
+                        if ($parametres[0] != "id") { // Si ce n'est pas le paramètre ID (on ne le compte pas)
+                            // On affiche une erreur
+                            header('Content-Type: application/json');
+                            return json_encode(['error' => 'true', 'message' => 'parameters field not accepted'], JSON_PRETTY_PRINT);
+                        } else { // Sinon on continue
+                            $this->champsExist = array_merge($this->champsExist, [$parametres[0]]);
+                        }
+                    }
+                }
+                // On boucle les paramètres
+                    if (in_array($params['postParams']['ident']['name'], $this->champsExist)) { // Si les paramètres sont OK
+                        $ReQ = ' WHERE ' . $params['postParams']['ident']['name'] . ' = ' . $params['postParams']['ident']['value'];
+                    }
+
+                if ($ReQ) {
+                    $insert = $this->connect()->prepare('DELETE FROM ' . $params['postParams']['table'] . $ReQ);
+                    $insert->execute();
+
+                    header('Content-Type: application/json');
+                    return json_encode(['success' => 'true'], JSON_PRETTY_PRINT);
+                } else {
+                    header('Content-Type: application/json');
+                    return json_encode(['error' => 'true', 'message' => 'parameters field not accepted'], JSON_PRETTY_PRINT);
+                }
+            } else {
+                header('Content-Type: application/json');
+                return json_encode(['error' => 'true', 'message' => 'table doesn\'t exist'], JSON_PRETTY_PRINT);
+            }
+        } else {
+            header('Content-Type: application/json');
+            return json_encode(['error' => 'true', 'message' => 'parameters doesn\'t exist'], JSON_PRETTY_PRINT);
+        }
     }
 
     public function showJson($params)

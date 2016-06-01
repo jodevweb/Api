@@ -202,11 +202,33 @@ $fields = array(
         'apikey' => 'd8ac17509ccf43188b7fdfed9c1b283a',
         'table' => 'articles',
         'params' => array(
-            'titre'     => 'MyTitle',
-            'contenu'   => 'new contenu',
+            'titre'     => 'THEBEST',
+            'contenu'   => 'JODEV',
             'user_id'   => '2',
         ),
-        'id' => '3',
+        'ident' => [
+            'name' => 'id',
+            'value' => '3'
+        ],
+    )
+);
+```
+
+## DELETE
+
+### URL : http://localhost/api/delete
+
+**Configuration :**
+
+```php
+$fields = array(
+    'params' => array(
+        'apikey' => 'd8ac17509ccf43188b7fdfed9c1b283a',
+        'table' => 'articles',
+        'ident' => [
+            'name' => 'id',
+            'value' => '3'
+        ],
     )
 );
 ```
