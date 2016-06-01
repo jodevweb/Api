@@ -121,10 +121,10 @@ class api
     public function verifyApiKey($method)
     {
         // On spécifie l'action d'appel pour récupérer la key API
-        if ($method == "GET") $getKey = $_GET['apikey'];
-        if ($method == "POST") $getKey = $_POST['params']['apikey'];
-        if ($method == "PUT") $getKey = $_POST['params']['apikey'];
-        if ($method == "DELETE") $getKey = $_POST['params']['apikey'];
+        if ($method == "GET" && !empty($_GET['apikey'])): $getKey = $_GET['apikey']; else: $getKey = false; endif;
+        if ($method == "POST" && !empty($_POST['params']['apikey'])): $getKey = $_POST['params']['apikey']; else: $getKey = false; endif;
+        if ($method == "PUT" && !empty($_POST['params']['apikey'])): $getKey = $_POST['params']['apikey']; else: $getKey = false; endif;
+        if ($method == "DELETE" && !empty($_POST['params']['apikey'])): $getKey = $_POST['params']['apikey']; else: $getKey = false; endif;
         // Si la key API est vide on renvoie false
         if (empty($getKey) OR $this->getApiKey($getKey) === false) {
             return false;
